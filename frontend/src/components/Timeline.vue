@@ -1,5 +1,6 @@
 <template>
   <div class="timeline">
+    <h1>hola</h1>
     <ul>
       <li v-for="tweet in tweets">
         <tweet :tweet="tweet"/>
@@ -10,17 +11,28 @@
 
 <script>
 import Tweet from './Tweet'
+import Vue from 'vue'
+import Resource from 'vue-resource'
+Vue.use(Resource)
 
 export default {
   name: 'timeline',
   data () {
     return {
-      tweets: [
-      {auteur: 'michel', contenu: 'tweet 1'},
-      {auteur: 'johndoe', contenu: 'tweet 2'},
-      {auteur: 'brunomars', contenu: 'tweet 3'},
-      {auteur: 'jeancapelle', contenu: 'tweet 4'}
-      ]
+      tweets: []
+    }
+  },
+  created () {
+    this.fetchTweets()
+  },
+  methods: {
+    fetchTweets: function () {
+      this.$http.get('http://localhost:8080/list').then(response => {
+        this.tweets = response.body
+      },
+      response => {
+        // error callback
+      })
     }
   },
   components: {Tweet}
