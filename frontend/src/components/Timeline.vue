@@ -1,16 +1,12 @@
 <template>
   <div class="timeline">
     <h1>hola</h1>
-    <ul>
-      <li v-for="tweet in tweets">
-        <tweet :tweet="tweet"/>
-      </li>
-    </ul>
+    <feed :tweets="tweets" :loading="loading"/>
   </div>
 </template>
 
 <script>
-import Tweet from './Tweet'
+import Feed from './Feed'
 import Vue from 'vue'
 import Resource from 'vue-resource'
 Vue.use(Resource)
@@ -19,7 +15,8 @@ export default {
   name: 'timeline',
   data () {
     return {
-      tweets: []
+      tweets: [],
+      loading: true
     }
   },
   created () {
@@ -29,13 +26,14 @@ export default {
     fetchTweets: function () {
       this.$http.get('http://localhost:8080/list').then(response => {
         this.tweets = response.body
+        this.loading = false
       },
       response => {
         // error callback
       })
     }
   },
-  components: {Tweet}
+  components: {Feed}
 }
 </script>
 
