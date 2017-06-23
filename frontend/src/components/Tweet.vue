@@ -57,7 +57,7 @@ export default {
           tweet: this.tweet.id
         }
       }, resp => {
-        
+        this.$emit('retweeted', this.tweet.id)
       })
     }
   }

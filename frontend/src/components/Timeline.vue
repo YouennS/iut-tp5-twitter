@@ -1,7 +1,7 @@
 <template>
   <div class="timeline">
-    <h1>ho</h1>
-    <feed :tweets="tweets" :loading="loading"/>
+    <h1>hola</h1>
+    <feed :tweets="tweets" :loading="loading" @retweeted="retweet"/>
   </div>
 </template>
 
@@ -31,6 +31,9 @@ export default {
       response => {
         // error callback
       })
+    },
+    retweet: function (id) {
+      // maj
     }
   },
   components: {Feed}
