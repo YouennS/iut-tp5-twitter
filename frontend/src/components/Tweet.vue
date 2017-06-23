@@ -3,7 +3,7 @@
     <div>
       <strong>{{tweet.auteur.prenom}} {{tweet.auteur.nom}}</strong>
       <span class=handle>@{{tweet.auteur.handle}}</span>
-      - {{moment()}}
+      -- {{moment()}}
     </div>
     <div>
       {{tweet.contenu}}
@@ -14,7 +14,10 @@
           <icon name="reply"/>
         </li>
         <li class=button>
-          <icon name="retweet"/> {{tweet.retweeters.length}}
+          <a @click="retweet(tweet.id)">
+            <icon name="retweet"/>
+          </a>
+          {{tweet.retweeters.length}}
         </li>
         <li class=button>
           <icon name="heart"/>
@@ -31,6 +34,9 @@
 import 'vue-awesome/icons'
 import Icon from 'vue-awesome/components/Icon'
 import moment from 'moment'
+import Vue from 'vue'
+import Resource from 'vue-resource'
+Vue.use(Resource)
 
 export default {
   created () {
@@ -42,6 +48,17 @@ export default {
   methods: {
     moment: function () {
       return moment(this.tweet.date).fromNow()
+    },
+    retweet: function (tweetId) {
+      this.$http.get('http://localhost:8080/retweet', {
+        responseType: 'text',
+        params: {
+          utilisateur: 'johndoe',
+          tweet: this.tweet.id
+        }
+      }, resp => {
+        
+      })
     }
   }
 }

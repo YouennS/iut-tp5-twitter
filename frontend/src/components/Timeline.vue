@@ -1,6 +1,6 @@
 <template>
   <div class="timeline">
-    <h1>hola</h1>
+    <h1>ho</h1>
     <feed :tweets="tweets" :loading="loading"/>
   </div>
 </template>
